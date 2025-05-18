@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>For My Beloved</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap');
+
+  /* Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: linear-gradient(135deg, #fceabb, #f8b500);
+    font-family: 'Poppins', sans-serif;
+    color: #5b0e0e;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 3rem 4rem;
+    border-radius: 25px;
+    box-shadow: 0 12px 30px rgba(251, 150, 130, 0.3);
+    max-width: 700px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #b3250e;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 8px #f6cfcf;
+    animation: fadeInUp 2s ease forwards;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #93291e;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 2s ease 0.5s forwards;
+    opacity: 0;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    font-weight: 300;
+    color: #731b13;
+    margin-bottom: 2rem;
+    animation: fadeInUp 2s ease 1s forwards;
+    opacity: 0;
+  }
+
+  .heart-container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    animation: beat 1.2s infinite;
+    z-index: 3;
+  }
+
+  .heart {
+    width: 100px;
+    height: 90px;
+    background-color: #d72631;
+    position: relative;
+    transform: rotate(-45deg);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 4px 10px rgba(215, 38, 49, 0.6);
+  }
+  .heart::before,
+  .heart::after {
+    content: "";
+    width: 100px;
+    height: 90px;
+    background-color: #d72631;
+    border-radius: 50%;
+    position: absolute;
+  }
+  .heart::before {
+    top: -50px;
+    left: 0;
+  }
+  .heart::after {
+    top: 0;
+    left: 50px;
+  }
+
+  /* Floating small hearts animation */
+  .floating-heart {
+    position: absolute;
+    background-color: #ff4b5c;
+    width: 20px;
+    height: 20px;
+    transform: rotate(-45deg);
+    border-radius: 20px 20px 0 0;
+    opacity: 0.8;
+    animation-timing-function: ease-in-out;
+  }
+  .floating-heart::before,
+  .floating-heart::after {
+    content: "";
+    position: absolute;
+    background-color: #ff4b5c;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+  .floating-heart::before {
+    top: -10px;
+    left: 0;
+  }
+  .floating-heart::after {
+    top: 0;
+    left: 10px;
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.15); }
+  }
+
+  @keyframes floatUp {
+    0% {
+      opacity: 0.8;
+      transform: translateY(0) rotate(-45deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-300px) rotate(-45deg);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  footer {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    color: #8b2323;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.05em;
+    z-index: 1;
+  }
+
+  /* Overlay styles */
+  #introOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #d72631, #ff6b81);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    color: white;
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    text-align: center;
+    padding: 20px;
+    user-select: none;
+  }
+
+  #introOverlay button {
+    margin-top: 2rem;
+    padding: 0.8rem 2.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background-color: #f9b24e;
+    color: #7a1d0c;
+    box-shadow: 0 4px 15px rgba(249, 178, 78, 0.7);
+    transition: background-color 0.3s ease;
+  }
+  #introOverlay button:hover {
+    background-color: #f0a425;
+  }
+
+  #secondPrompt, #thirdPrompt {
+    max-width: 350px;
+    font-size: 2rem;
+    position: relative;
+  }
+
+  #secondPrompt button, #thirdPrompt button {
+    margin: 1.2rem 0.8rem 0 0.8rem;
+    padding: 0.6rem 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(249, 178, 78, 0.7);
+    transition: background-color 0.3s ease;
+  }
+  .btn-yes {
+    background-color: #ff4b5c;
+    color: white;
+  }
+  .btn-yes:hover {
+    background-color: #d72631;
+  }
+  .btn-no {
+    background-color: #f9b24e;
+    color: #7a1d0c;
+  }
+  .btn-no:hover {
+    background-color: #f0a425;
+  }
+
+  /* Back button style: positioned bottom right */
+  .btn-back {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 0.5rem 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background-color: #7a1707;
+    color: white;
+    box-shadow: 0 4px 14px rgba(122, 23, 7, 0.8);
+    transition: background-color 0.3s ease;
+    z-index: 10000;
+    display: none; /* Initially hidden */
+  }
+  .btn-back.show {
+    display: block;
+  }
+  .btn-back:hover {
+    background-color: #a6260a;
+  }
+
+</style>
+</head>
+<body>
+  <div id="introOverlay" role="dialog" aria-modal="true" tabindex="0">
+    <!-- First prompt content -->
+    <div id="firstPrompt">
+      Hi Baby!<br />Timro lagi banako la
+      <button id="openBtn" aria-label="Open romantic message">Open</button>
+    </div>
+
+    <!-- Second prompt -->
+    <div id="secondPrompt" style="display:none; position: relative;">
+      Arko page herne ho?
+      <div>
+        <button class="btn-yes" id="yesBtn" aria-label="Yes herne">Yes herne</button>
+        <button class="btn-no" id="noBtn" aria-label="Nai na herne">Nai na herne</button>
+      </div>
+      <button class="btn-back" id="backFromSecond" aria-label="Arko option choose garchu aaba">Arko option choose garchu aaba</button>
+    </div>
+
+    <!-- Third prompt -->
+    <div id="thirdPrompt" style="display:none; position: relative;">
+      Kina na herne?
+      <div>
+        <button class="btn-yes" id="resairachuBtn" aria-label="Ma resairachu timi sanga">Ma resairachu timi sanga</button>
+        <button class="btn-no" id="hainaBtn" aria-label="Haina herchu aaba">Haina herchu aaba</button>
+      </div>
+      <button class="btn-back" id="backFromThird" aria-label="Arko option choose garchu aaba">Arko option choose garchu aaba</button>
+    </div>
+  </div>
+
+  <div class="heart-container" aria-hidden="true">
+    <div class="heart"></div>
+  </div>
+
+  <main class="container" role="main" aria-label="Romantic Message for My Girlfriend" hidden tabindex="-1" style="position: relative;">
+    <h1>Sorryy babyy</h1>
+    <p>na resauu.<br />I love you chuppa</p>
+    <button class="btn-back" id="backFromMain" aria-label="Arko option choose garchu aaba">Arko option choose garchu aaba</button>
+  </main>
+
+  <footer>Made with ♥ just for you</footer>
+
+  <script>
+    // Floating hearts
+    const colors = ['#ff6b81', '#ff9a9e', '#ff4b5c', '#d72631', '#f06c9b'];
+    const body = document.body;
+
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('floating-heart');
+      heart.style.left = (Math.random() * 100) + 'vw';
+      heart.style.bottom = '-30px';
+      heart.style.width = (12 + Math.random() * 18) + 'px';
+      heart.style.height = heart.style.width;
+      heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      heart.style.animation = `floatUp ${6 + Math.random() * 6}s linear forwards`;
+      heart.style.animationDelay = (Math.random() * 10) + 's';
+      heart.style.opacity = 0.7 + Math.random() * 0.3;
+      heart.style.borderRadius = '20px 20px 0 0';
+      heart.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+      body.appendChild(heart);
+      setTimeout(() => heart.remove(), 13000);
+    }
+    setInterval(createFloatingHeart, 600);
+
+    // DOM elements
+    const introOverlay = document.getElementById('introOverlay');
+    const firstPrompt = document.getElementById('firstPrompt');
+    const secondPrompt = document.getElementById('secondPrompt');
+    const thirdPrompt = document.getElementById('thirdPrompt');
+    const mainContent = document.querySelector('main.container');
+
+    const openBtn = document.getElementById('openBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const resairachuBtn = document.getElementById('resairachuBtn');
+    const hainaBtn = document.getElementById('hainaBtn');
+
+    const backFromSecond = document.getElementById('backFromSecond');
+    const backFromThird = document.getElementById('backFromThird');
+    const backFromMain = document.getElementById('backFromMain');
+
+    // Helper for back button timers
+    let backButtonTimer = null;
+    function showBackButtonAfterDelay(button, delay) {
+      if(backButtonTimer) {
+        clearTimeout(backButtonTimer);
+        backButtonTimer = null;
+      }
+      button.classList.remove('show');
+      backButtonTimer = setTimeout(() => {
+        button.classList.add('show');
+      }, delay);
+    }
+    function hideAllBackButtons() {
+      backFromSecond.classList.remove('show');
+      backFromThird.classList.remove('show');
+      backFromMain.classList.remove('show');
+      if(backButtonTimer) {
+        clearTimeout(backButtonTimer);
+        backButtonTimer = null;
+      }
+    }
+
+    // Show second prompt when clicking "Open"
+    openBtn.addEventListener('click', () => {
+      firstPrompt.style.display = 'none';
+      secondPrompt.style.display = 'block';
+      hideAllBackButtons();
+      yesBtn.focus();
+    });
+
+    // User clicks "Yes herne"
+    yesBtn.addEventListener('click', () => {
+      introOverlay.style.display = 'none';
+      mainContent.hidden = false;
+      hideAllBackButtons();
+      showBackButtonAfterDelay(backFromMain, 4000);
+      mainContent.focus();
+      mainContent.querySelector('h1').textContent = 'K cha babyyy';
+      mainContent.querySelector('p').innerHTML = 'your mayalu loves you a lott chupppaaaaaa<br />timro lagi specially la yo';
+    });
+
+    // User clicks "Nai na herne"
+    noBtn.addEventListener('click', () => {
+      secondPrompt.style.display = 'none';
+      thirdPrompt.style.display = 'block';
+      hideAllBackButtons();
+      showBackButtonAfterDelay(backFromThird, 4000);
+      resairachuBtn.focus();
+    });
+
+    // User clicks "Ma resairachu timi sanga"
+    resairachuBtn.addEventListener('click', () => {
+      introOverlay.style.display = 'none';
+      mainContent.hidden = false;
+      hideAllBackButtons();
+      showBackButtonAfterDelay(backFromMain, 4000);
+      mainContent.focus();
+      mainContent.querySelector('h1').textContent = 'Sorryy babyy';
+      mainContent.querySelector('p').textContent = 'na resauu. I love you chuppa';
+    });
+
+    // User clicks "Haina herchu aaba"
+    hainaBtn.addEventListener('click', () => {
+      thirdPrompt.style.display = 'none';
+      secondPrompt.style.display = 'block';
+      hideAllBackButtons();
+      yesBtn.focus();
+    });
+
+    // Back buttons handlers
+    backFromSecond.addEventListener('click', () => {
+      // No back button shown on second prompt as per latest instructions - if clicked, send to third prompt
+      secondPrompt.style.display = 'none';
+      thirdPrompt.style.display = 'block';
+      hideAllBackButtons();
+      showBackButtonAfterDelay(backFromThird, 4000);
+      resairachuBtn.focus();
+    });
+
+    backFromThird.addEventListener('click', () => {
+      thirdPrompt.style.display = 'none';
+      secondPrompt.style.display = 'block';
+      hideAllBackButtons();
+      yesBtn.focus();
+    });
+
+    backFromMain.addEventListener('click', () => {
+      mainContent.hidden = true;
+      introOverlay.style.display = 'block';
+      hideAllBackButtons();
+      // Go back to third prompt ("Kina na herne?")
+      firstPrompt.style.display = 'none';
+      secondPrompt.style.display = 'none';
+      thirdPrompt.style.display = 'block';
+      showBackButtonAfterDelay(backFromThird, 4000);
+      resairachuBtn.focus();
+    });
+
+    // Accessibility: keyboard trigger for buttons
+    [
+      openBtn,
+      yesBtn,
+      noBtn,
+      resairachuBtn,
+      hainaBtn,
+      backFromSecond,
+      backFromThird,
+      backFromMain
+    ].forEach(btn => {
+      btn.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
